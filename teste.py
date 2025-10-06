@@ -81,7 +81,7 @@ class Summarizer:
             if event_type not in self.CURRENT_SUPPORTED_EVENTS:
                 continue
 
-            handler = getattr(self. event_type, None)
+            handler = getattr(self.event_type, None)
             if handler:
                 handler(event=event)
         
@@ -96,15 +96,18 @@ class Summarizer:
                     print(
                         f"- Pushed {number_of_commits} commits to {repo_name}"
                     )
+                    
             elif event_type == "issuesEvent":
                 print("Issues: ")
                 for action_type, repos in event_summary_data.items():
                     for repo_name, count in repos.items():
                         print(f"- {action_type} {count} issue in {repo_name}")
+
             elif event_type == "watchEvent":
                 print("Stars: ")
                 for i in event_summary_data:
                     print(f"- Starred {i}")
+
             elif event_type == "PullRequestEvent":
                 print("Pull Request: ")
                 for action_type, repos in event_summary_data.items():
