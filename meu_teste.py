@@ -1,6 +1,5 @@
 import urllib.request
 import json
-import sys
 
 # Show commits
 # Show issues
@@ -17,19 +16,29 @@ like to request a list of issues, and replace {owner} with the name of the accou
 
 
     # receive a name from user
-url = f'https://api.github.com/users/ingrydlorena/events'
+url = f'https://api.github.com/users/wesleysouza13/events'
 res = urllib.request.urlopen(url)
 
-response = json.loads(res).read().decode('utf-8')
-# print(json.dumps(res, indent=2))
-
-# for event in res['PushEvent']:
-#     print(event['type'])
+response = json.loads(res.read().decode('utf-8'))
     
 
-for event in response:
+for event in response[:10]:
     event_type = event.get('type')
-    print(event_type)
+    repository_name = event.get('repo', {}).get('name', 'unknown repository')
+    if event_type == 'PushEvent':
+        commits = len(event.get('payload', {}).get('commits', []))
+        print(f"- Pushed {commits} commits to {repository_name}")
+    elif event_type == 'IssuesEvent':
+        action = event.get('payload', {}).get('action', 'performed an action on')
+        print(f"- {action.capitalize()} an issue in {repository_name}")
+    elif event_type == 'WatchEvent':
+        print(f"- Starred {repository_name}")
+    else:
+        print(f"- {event_type} in {repository_name}")
+    
+
+
+    
     
        
 

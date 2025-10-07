@@ -19,6 +19,7 @@ def fetch_github_activity(username):
             for event in data:
                 event_type = event.get('type')
                 repo_name = event.get('repo', {}).get('name', 'unknown repository')
+                print(event_type)
 
                 if event_type == "PushEvent":
                     commits = len(event.get('payload',{}).get('commits',[]))
