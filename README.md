@@ -7,3 +7,5 @@ In this project, you will build a simple command line interface (CLI) to fetch t
 [x] Display the fetched activity in the terminal.
 [x] Handle errors gracefully, such as invalid usernames or API failures.
 [x] Do not use any external libraries or frameworks to fetch the GitHub activity.
+
+- [The challenge link](https://roadmap.sh/projects/github-user-activity)
